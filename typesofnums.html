@@ -54,6 +54,14 @@
             border-radius: 5px;
             transition: background-color 0.3s ease;
         }
+        .options button.correct {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .options button.incorrect {
+            background-color: #f44336;
+            color: white;
+        }
         .options button:hover {
             background-color: #ddd;
         }
@@ -79,26 +87,14 @@
 
     <script>
         var questions = [
-            { question: "What type of number is 5?", options: ["Rational", "Irrational", "Whole", "Integer"], answer: "Whole" },
-            { question: "What type of number is √2?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Irrational" },
-            { question: "What type of number is 0.5?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Rational" },
-            { question: "What type of number is 2*10^10?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Whole" },  
-            { question: "What type of number is -4?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Integer" },
-            { question: "What type of number is π?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Irrational" },
-            { question: "What type of number is 100?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Whole" },
-            { question: "What type of number is 0?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Whole" },
-            { question: "What type of number is √16?", options: ["Rational", "Irrational", "Whole", "Integer"], answer: "Whole" },
-            { question: "What type of number is 3.14?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Irrational" },
-            { question: "What type of number is -10/3?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Rational" },
-            { question: "What type of number is 17?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Whole" },
-            { question: "What type of number is √25?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Natural" },
-            { question: "What type of number is -√36?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Integer" },
-            { question: "What type of number is 2.5?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Rational" },
-            { question: "What type of number is 1/3?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Rational" },
-            { question: "What type of number is 0.75?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Rational" },
-            { question: "What type of number is -√81?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Integer" },
-            { question: "What type of number is 99?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Whole" },
-            { question: "What type of number is √49?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Natural" }
+            { question: "What type of number is 5?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: ["Natural"] },
+            { question: "What type of number is √2?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: ["Irrational"] },
+            { question: "What type of number is 0.5?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: ["Rational"] },
+            // Add more questions here
+            { question: "What type of number is 7/3?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer", "Real"], answer: ["Rational", "Real"] },
+            { question: "What type of number is -4?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer", "Real", "Negative"], answer: ["Integer", "Real", "Negative"] },
+            { question: "What type of number is π?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer", "Real"], answer: ["Irrational", "Real"] },
+            // Add more questions here
         ];
         var currentQuestionIndex = 0;
         var score = 0;
@@ -112,15 +108,34 @@
                 var button = document.createElement('button');
                 button.textContent = option;
                 button.onclick = function() {
-                    checkAnswer(option);
+                    toggleOption(button, option);
                 };
                 optionsContainer.appendChild(button);
             });
         }
 
-        function checkAnswer(selectedOption) {
+        function toggleOption(button, option) {
+            if (button.classList.contains('selected')) {
+                button.classList.remove('selected');
+            } else {
+                button.classList.add('selected');
+            }
+        }
+
+        function checkAnswer() {
             var currentQuestion = questions[currentQuestionIndex];
-            if (selectedOption === currentQuestion.answer) {
+            var selectedOptions = Array.from(document.querySelectorAll('.options button.selected')).map(btn => btn.textContent);
+            var correctAnswers = currentQuestion.answer;
+            var isCorrect = arraysEqual(selectedOptions, correctAnswers);
+            document.querySelectorAll('.options button').forEach(function(button) {
+                if (correctAnswers.includes(button.textContent)) {
+                    button.classList.add('correct');
+                }
+                if (!selectedOptions.includes(button.textContent) && correctAnswers.includes(button.textContent)) {
+                    button.classList.add('incorrect');
+                }
+            });
+            if (isCorrect) {
                 score += 10;
                 document.getElementById('score-value').textContent = score;
                 alert("Correct!");
@@ -133,6 +148,15 @@
             } else {
                 alert("Quiz completed! Your final score is: " + score);
             }
+        }
+
+        // Helper function to check if two arrays are equal
+        function arraysEqual(arr1, arr2) {
+            if (arr1.length !== arr2.length) return false;
+            for (var i = 0; i < arr1.length; i++) {
+                if (arr1[i] !== arr2[i]) return false;
+            }
+            return true;
         }
 
         // Initial load
