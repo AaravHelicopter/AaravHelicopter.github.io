@@ -130,6 +130,8 @@
             document.querySelectorAll('.options button').forEach(function(button) {
                 if (correctAnswers.includes(button.textContent)) {
                     button.classList.add('correct');
+                } else {
+                    button.classList.remove('correct');
                 }
                 if (!selectedOptions.includes(button.textContent) && correctAnswers.includes(button.textContent)) {
                     button.classList.add('incorrect');
