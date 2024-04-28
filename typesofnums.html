@@ -173,7 +173,18 @@
                 alert("Correct!");
             } else {
                 alert("Incorrect!");
+                // Highlight correct answer button in green
+                var correctButton = document.querySelector('.options button');
+                currentQuestion.options.forEach(function(option) {
+                    if (option === currentQuestion.correctAnswer) {
+                        correctButton = document.querySelector('.options button:nth-of-type(' + (currentQuestion.options.indexOf(option) + 1) + ')');
+                    }
+                });
+                correctButton.style.backgroundColor = "#4CAF50";
             }
+            // Change selected button color to red if the answer is wrong
+            selectedButton.style.backgroundColor = selectedOption === currentQuestion.correctAnswer ? "#4CAF50" : "#FF0000";
+            
             currentQuestionIndex++;
             if (currentQuestionIndex < questions.length) {
                 loadQuestion();
