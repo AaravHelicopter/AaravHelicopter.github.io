@@ -7,78 +7,7 @@
     <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
    
     <style>
-        /* Additional CSS for the game */
-        body {
-            background-color: #f2f2f2;
-            font-family: Arial, sans-serif;
-        }
-        .topnav {
-            background-color: #333;
-            overflow: hidden;
-        }
-        .topnav a {
-            float: left;
-            display: block;
-            color: #f2f2f2;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-        .topnav a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-        .active {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .game-container {
-            text-align: center;
-            margin-top: 50px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .question {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        .options button {
-            margin: 5px;
-            padding: 10px 20px;
-            font-size: 18px;
-            cursor: pointer;
-            background-color: #f0f0f0;
-            border: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        .options button:hover {
-            background-color: #ddd;
-        }
-        .options button.selected {
-            background-color: #4CAF50;
-            color: white;
-        }
-        #score {
-            font-size: 20px;
-            margin-top: 20px;
-        }
-        #submit-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 18px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        #submit-button:hover {
-            background-color: #0056b3;
-        }
+        /* Your CSS styles */
     </style>
 </head>
 <body>
@@ -93,6 +22,8 @@
         <div id="question"></div>
         <div class="options" id="options-container"></div>
         <button id="submit-button" onclick="submitAnswer()">Submit</button>
+        <div id="feedback"></div>
+        <button id="next-button" style="display: none;" onclick="nextQuestion()">Next Question</button>
         <div id="score">Score: <span id="score-value">0</span></div>
     </div>
 
@@ -128,9 +59,6 @@
             }
             return array;
         }
-
-        // Shuffle the questions array before loading the first question
-        shuffle(questions);
 
         var currentQuestionIndex = 0;
         var score = 0;
@@ -170,9 +98,9 @@
             if (selectedOption === currentQuestion.correctAnswer) { // Check against correctAnswer property
                 score += 10;
                 document.getElementById('score-value').textContent = score;
-                alert("Correct!");
+                document.getElementById('feedback').textContent = "Correct!";
             } else {
-                alert("Incorrect!");
+                document.getElementById('feedback').textContent = "Incorrect!";
                 // Highlight correct answer button in green
                 var correctButton = document.querySelector('.options button');
                 currentQuestion.options.forEach(function(option) {
@@ -185,6 +113,18 @@
             // Change selected button color to red if the answer is wrong
             selectedButton.style.backgroundColor = selectedOption === currentQuestion.correctAnswer ? "#4CAF50" : "#FF0000";
             
+            document.getElementById('submit-button').style.display = 'none';
+            document.getElementById('next-button').style.display = 'block';
+        }
+
+        function nextQuestion() {
+            document.getElementById('next-button').style.display = 'none';
+            document.getElementById('submit-button').style.display = 'block';
+            document.getElementById('feedback').textContent = '';
+            var optionButtons = document.querySelectorAll('.options button');
+            optionButtons.forEach(function(btn) {
+                btn.style.backgroundColor = "#f0f0f0";
+            });
             currentQuestionIndex++;
             if (currentQuestionIndex < questions.length) {
                 loadQuestion();
