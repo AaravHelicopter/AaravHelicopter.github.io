@@ -42,31 +42,55 @@
         <a href="#about">About</a>
     </div>
 
-    <div class="game-container">
-        <div class="question">What type of number is 5?</div>
-        <div class="options">
-            <button onclick="checkAnswer('rational')">Rational</button>
-            <button onclick="checkAnswer('irrational')">Irrational</button>
-            <button onclick="checkAnswer('natural')">Natural</button>
-            <button onclick="checkAnswer('whole')">Whole</button>
-            <button onclick="checkAnswer('integer')">Integer</button>
-        </div>
+    <div class="game-container" id="quiz-container">
+        <div id="question"></div>
+        <div class="options" id="options-container"></div>
         <div id="score">Score: <span id="score-value">0</span></div>
     </div>
 
     <script>
+        var questions = [
+            { question: "What type of number is 5?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Natural" },
+            { question: "What type of number is √2?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Irrational" },
+            { question: "What type of number is 0.5?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Rational" }
+        ];
+        var currentQuestionIndex = 0;
         var score = 0;
 
-        function checkAnswer(selectedType) {
-            if (selectedType === 'integer') {
+        function loadQuestion() {
+            var currentQuestion = questions[currentQuestionIndex];
+            document.getElementById('question').textContent = currentQuestion.question;
+            var optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            currentQuestion.options.forEach(function(option) {
+                var button = document.createElement('button');
+                button.textContent = option;
+                button.onclick = function() {
+                    checkAnswer(option);
+                };
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedOption) {
+            var currentQuestion = questions[currentQuestionIndex];
+            if (selectedOption === currentQuestion.answer) {
                 score += 10;
                 document.getElementById('score-value').textContent = score;
                 alert("Correct!");
             } else {
                 alert("Incorrect!");
             }
-            // You can add more questions and logic for checking answers here
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion();
+            } else {
+                alert("Quiz completed! Your final score is: " + score);
+            }
         }
+
+        // Initial load
+        loadQuestion();
     </script>
 </body>
 </html>
