@@ -120,6 +120,19 @@
             { question: "What type of number is 99?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Whole" },
             { question: "What type of number is √49?", options: ["Rational", "Irrational", "Natural", "Whole", "Integer"], answer: "Natural" }
         ];
+
+        // Shuffle function to randomize the order of array elements
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Shuffle the questions array before loading the first question
+        shuffle(questions);
+
         var currentQuestionIndex = 0;
         var score = 0;
 
