@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expressing Numbers</title>
+    <title>Ways of Expressing Numbers</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,14 +17,21 @@
             text-align: center;
         }
         nav {
-            background-color: #f2f2f2;
+            background-color: #333;
+            color: white;
             padding: 10px;
             text-align: center;
         }
         nav a {
             margin: 0 10px;
             text-decoration: none;
-            color: #333;
+            color: #fff;
+        }
+        nav a.active {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
         }
         main {
             padding: 20px;
@@ -41,16 +48,15 @@
     </style>
 </head>
 <body>
-
     <header>
         <h1>Ways of Expressing Numbers</h1>
     </header>
     <nav>
-        <a href="#ratios">Ratios</a>
-        <a href="#percentages">Percentages</a>
-        <a href="#fractions">Fractions</a>
-        <a href="#decimals">Decimals</a>
-        <a href="#others">Other Forms</a>
+        <a class="active" href="index.html">Home</a>
+        <a href="typesofnums.html">Types of Numbers</a>
+        <a href="quiz.html">Quiz Page</a>
+        <a href="expressingnums.html">Expressing Numbers</a>
+        <a href="#about">About</a>
     </nav>
     <main>
         <section id="ratios">
@@ -69,9 +75,14 @@
             <h2>Decimals</h2>
             <p>Decimals are another way of expressing parts of a whole. For example, 0.5 is the decimal form of one half.</p>
         </section>
+        <section id="scientific">
+            <h2>Scientific Notation</h2>
+            <p>Scientific notation is a way of expressing very large or very small numbers in a concise form. It consists of a number between 1 and 10 multiplied by a power of 10.</p>
+            <p>For example, the speed of light in meters per second is approximately 299,792,458. In scientific notation, this is written as 2.99792458 x 10^8.</p>
+        </section>
         <section id="others">
             <h2>Other Forms</h2>
-            <p>There are many other ways of expressing numbers, such as scientific notation, square roots, and so on. Each has its own use and application.</p>
+            <p>There are many other ways of expressing numbers, such as square roots, logarithms, and so on. Each has its own use and application.</p>
         </section>
     </main>
 </body>
