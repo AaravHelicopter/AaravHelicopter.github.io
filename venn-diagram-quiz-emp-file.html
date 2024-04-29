@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="script.js"></script>
+
+<style>
+.number {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.venn-diagram {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.whole {
+    background-color: #FFC300; /* Yellow */
+}
+
+.integer {
+    background-color: #FF5733; /* Orange */
+}
+
+.rational {
+    background-color: #C70039; /* Red */
+}
+
+.irrational {
+    background-color: #581845; /* Purple */
+}
+
+.venn-diagram div {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.answer-feedback {
+    font-size: 18px;
+    margin-top: 20px;
+}
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venn Diagram Number Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="number"></div>
+    <div class="venn-diagram">
+    <div class="whole">Whole Numbers</div>
+    <div class="integer">Integers</div>
+    <div class="rational">Rational Numbers</div>
+    <div class="irrational">Irrational Numbers</div>
+    <div class="answer-feedback"></div>
+    <button onclick="generateQuestion()">Next Question</button>
+    
+
+
+</body>
+</html>
