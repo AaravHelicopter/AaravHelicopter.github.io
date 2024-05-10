@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Introduction to Cartesian Coordinate System</title>
+    <title>Cartesian Coordinate System Quiz</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,9 +23,31 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
+            position: relative; /* Added to position the answer overlay */
         }
-        p {
-            line-height: 1.6;
+        img {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .answer-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
         }
         footer {
             background-color: #333;
@@ -36,44 +58,66 @@
             bottom: 0;
             width: 100%;
         }
-        img {
-            display: block;
-            margin: 0 auto;
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Introduction to Cartesian Coordinate System</h1>
+        <h1>Cartesian Coordinate System Quiz</h1>
     </header>
-    <div class="container">
-        <img src="cartesian_coordinate_system.png" alt="Cartesian Coordinate System">
-        <h2>What is a Cartesian Coordinate System?</h2>
-        <p>The Cartesian coordinate system, also known as rectangular coordinate system, is a two- or three-dimensional system for determining the position of a point using numerical coordinates. It was developed by René Descartes in the 17th century.</p>
-        
-        <h2>Components of Cartesian Coordinate System</h2>
-        <p>In the Cartesian coordinate system:</p>
-        <ul>
-            <li><strong>X-axis:</strong> Horizontal axis that represents the horizontal position of a point.</li>
-            <li><strong>Y-axis:</strong> Vertical axis that represents the vertical position of a point.</li>
-            <li><strong>Z-axis (in 3D):</strong> Perpendicular to the X and Y axes, representing depth or height.</li>
-            <li><strong>Origin:</strong> The point where all three axes intersect, typically denoted as (0, 0) in two dimensions and (0, 0, 0) in three dimensions.</li>
-        </ul>
-        
-        <h2>Representation of Points</h2>
-        <p>In a Cartesian coordinate system, each point is represented by an ordered pair (x, y) in two dimensions and an ordered triplet (x, y, z) in three dimensions. The x-coordinate represents the distance along the X-axis, the y-coordinate represents the distance along the Y-axis, and the z-coordinate (if present) represents the distance along the Z-axis.</p>
-        
-        <h2>Applications of Cartesian Coordinate System</h2>
-        <p>The Cartesian coordinate system is widely used in various fields, including mathematics, physics, engineering, computer graphics, and geography. It provides a convenient way to represent and analyze geometric shapes, equations, and spatial relationships.</p>
-        
-        <h2>Conclusion</h2>
-        <p>The Cartesian coordinate system is a fundamental tool for understanding and describing the position of points in space. By using numerical coordinates and axes, it allows for precise mathematical representation and analysis in two or three dimensions.</p>
+    <div class="container" id="quizContainer">
+        <h2 id="question">Question 1: Click on the point in Quadrant I</h2>
+        <img id="coordinatePlane" src="uploaded_coordinate_plane.png" alt="Cartesian Coordinate System">
+        <div class="answer-overlay" onclick="checkAnswer('quadrant1')"></div>
     </div>
     <footer>
-        <p>&copy; 2024 Introduction to Cartesian Coordinate System</p>
+        <p>&copy; 2024 Cartesian Coordinate System Quiz</p>
     </footer>
+
+    <script>
+        let currentQuestion = 1;
+
+        function nextQuestion() {
+            const quizContainer = document.getElementById('quizContainer');
+            const coordinatePlane = document.getElementById('coordinatePlane');
+            const question = document.getElementById('question');
+            const answerOverlay = document.querySelector('.answer-overlay');
+
+            currentQuestion++;
+            if (currentQuestion > 4) {
+                quizContainer.innerHTML = '<h2>Quiz Completed!</h2>';
+                return;
+            }
+
+            question.textContent = `Question ${currentQuestion}: Click on the point in Quadrant ${currentQuestion}`;
+            answerOverlay.onclick = function() {
+                checkAnswer(`quadrant${currentQuestion}`);
+            };
+        }
+
+        function checkAnswer(quadrant) {
+            const coordinatePlane = document.getElementById('coordinatePlane');
+            const rect = coordinatePlane.getBoundingClientRect();
+            const mouseX = event.clientX - rect.left;
+            const mouseY = event.clientY - rect.top;
+
+            let answer;
+            if (mouseX > rect.width / 2 && mouseY < rect.height / 2) {
+                answer = 'quadrant1';
+            } else if (mouseX < rect.width / 2 && mouseY < rect.height / 2) {
+                answer = 'quadrant2';
+            } else if (mouseX < rect.width / 2 && mouseY > rect.height / 2) {
+                answer = 'quadrant3';
+            } else {
+                answer = 'quadrant4';
+            }
+
+            if (answer === quadrant) {
+                alert('Correct! Well done!');
+                nextQuestion();
+            } else {
+                alert('Incorrect! Please try again.');
+            }
+        }
+    </script>
 </body>
 </html>
