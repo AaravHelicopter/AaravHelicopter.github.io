@@ -119,50 +119,52 @@
     </footer>
 
     <script>
-        let currentQuestion = 1;
+    let currentQuestion = 1;
 
-        function nextQuestion() {
-            const quizContainer = document.getElementById('quizContainer');
-            const coordinatePlane = document.getElementById('coordinatePlane');
-            const question = document.getElementById('question');
-            const answerOverlay = document.querySelector('.answer-overlay');
+    function nextQuestion() {
+        const quizContainer = document.getElementById('quizContainer');
+        const coordinatePlane = document.getElementById('coordinatePlane');
+        const question = document.getElementById('question');
+        const answerOverlay = document.querySelector('.answer-overlay');
 
-            currentQuestion++;
-            if (currentQuestion > 4) {
-                quizContainer.innerHTML = '<h2>Quiz Completed!</h2>';
-                return;
-            }
-
-            question.textContent = `Question ${currentQuestion}: Click on the point in Quadrant ${currentQuestion}`;
-            answerOverlay.onclick = function() {
-                checkAnswer(`quadrant${currentQuestion}`);
-            };
+        currentQuestion++;
+        if (currentQuestion > 4) {
+            quizContainer.innerHTML = '<h2>Quiz Completed!</h2>';
+            currentQuestion = 1; // Reset the currentQuestion variable
+            return;
         }
 
-        function checkAnswer(quadrant) {
-            const coordinatePlane = document.getElementById('coordinatePlane');
-            const rect = coordinatePlane.getBoundingClientRect();
-            const mouseX = event.clientX - rect.left;
-            const mouseY = event.clientY - rect.top;
+        question.textContent = `Question ${currentQuestion}: Click on the point in Quadrant ${currentQuestion}`;
+        answerOverlay.onclick = function() {
+            checkAnswer(`quadrant${currentQuestion}`);
+        };
+    }
 
-            let answer;
-            if (mouseX > rect.width / 2 && mouseY < rect.height / 2) {
-                answer = 'quadrant1';
-            } else if (mouseX < rect.width / 2 && mouseY < rect.height / 2) {
-                answer = 'quadrant2';
-            } else if (mouseX < rect.width / 2 && mouseY > rect.height / 2) {
-                answer = 'quadrant3';
-            } else {
-                answer = 'quadrant4';
-            }
+    function checkAnswer(quadrant) {
+        const coordinatePlane = document.getElementById('coordinatePlane');
+        const rect = coordinatePlane.getBoundingClientRect();
+        const mouseX = event.clientX - rect.left;
+        const mouseY = event.clientY - rect.top;
 
-            if (answer === quadrant) {
-                alert('Correct! Well done!');
-                nextQuestion();
-            } else {
-                alert('Incorrect! Please try again.');
-            }
+        let answer;
+        if (mouseX > rect.width / 2 && mouseY < rect.height / 2) {
+            answer = 'quadrant1';
+        } else if (mouseX < rect.width / 2 && mouseY < rect.height / 2) {
+            answer = 'quadrant2';
+        } else if (mouseX < rect.width / 2 && mouseY > rect.height / 2) {
+            answer = 'quadrant3';
+        } else {
+            answer = 'quadrant4';
         }
-    </script>
+
+        if (answer === quadrant) {
+            alert('Correct! Well done!');
+            nextQuestion();
+        } else {
+            alert('Incorrect! Please try again.');
+        }
+    }
+</script>
+
 </body>
 </html>
