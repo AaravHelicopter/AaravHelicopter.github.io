@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Types of Numbers Quiz</title>
+    <title>Types of Numbers Info & Quiz</title>
     <link rel="icon" type="image/x-icon" href="HELICOPTER MATH.png">
 
     <style>
@@ -147,7 +147,7 @@
     <script>
         var questions = [
             { question: "What type of number is 5 not?", options: ["Natural", "Whole", "Integer", "Rational", "Irrational"], correctAnswer: "Irrational", feedback: "Correct! 5 is not a irrational number because it CAN be expressed as a fraction(5/1)." },
-            { question: "What type of number is √2?", options: ["Irrational", "Rational", "Whole", "Integer", "Natural"], correctAnswer: "Irrational", feedback: "Correct! √2 is an irrational number because it cannot be expressed as a fraction." },
+            { question: "What is a rational number?", options: ["Something that is able to be expressed as a fraction", "Something that could not be expressed as a fraction", "Something that is only a interger!"], correctAnswer: "Something that is able to be expressed as a fraction", feedback: "Correct! A rational number is something that can be expressed as a fraction(ie. 7/3)." },
             { question: "What type of number is 0.5?", options: ["Rational", "Real", "Irrational", "Fractional", "Natural"], correctAnswer: "Rational", feedback: "Correct! 0.5 is a rational number because it can be expressed as a fraction." },
             { question: "What type of number is 7/3?", options: ["Rational", "Fractional", "Real", "Natural", "Integer"], correctAnswer: "Rational", feedback: "Correct! 7/3 is a rational number because it can be expressed as a fraction." },
             { question: "What type of number is -4?", options: ["Integer", "Rational", "Whole", "Natural", "Irrational"], correctAnswer: "Integer", feedback: "Correct! -4 is an integer because it is a whole number that can be negative." },
@@ -168,7 +168,6 @@
             { question: "What type of number is √49?", options: ["Natural", "Whole", "Integer", "Rational", "Irrational"], correctAnswer: "Natural", feedback: "Correct! √49 is a natural number because it is a positive integer." }
         ];
 
-        // Shuffle function to randomize the order of array elements
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -176,6 +175,9 @@
             }
             return array;
         }
+        shuffle(questions);
+
+
 
         var currentQuestionIndex = 0;
         var score = 0;
@@ -249,7 +251,7 @@
                 alert("Quiz completed! Your final score is: " + score);
             }
         }
-
+        
         // Initial load
         loadQuestion();
     </script>
